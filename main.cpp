@@ -1,21 +1,23 @@
 #include <iostream>
-#include <string>
-#include <client.h>
+#include <unistd.h>
+#include "JoystickManager.hpp"
+#include "MqttManager.hpp"
+
+#define JOYSTICK_ID 0 //<- SET JOYSTICK ID HERE
 
 int main() {
-    mqtt::client client("test.mosquitto.org:1883", "SnekTestClient");
-    mqtt::connect_options connOpts;
-    connOpts.set_keep_alive_interval(20);
-    connOpts.set_clean_session(true);
-    client.connect(connOpts);
+    JoystickManager joystickManager; //Create a joystick manager to hold our joysticks
+    MqttManager mqttManager;       //Create an mqtt manager to send our data
 
-    auto msg = mqtt::make_message("SnekTest/test", "test", 1, false);
+    joystickManager.init(); //Initialize the joystick manager
+    mqttManager.init();     //Initialize the mqtt manager
 
-    client.publish(msg);
+    joystickManager.openJoystick(JOYSTICK_ID);                //Open the joystick
+    mqttManager.openConnection("10.0.0.2", "JoystickBridge"); //Open the mqtt connection
 
-    client.subscribe("SnekTest/test");
-    auto recv = client.consume_message();
-
-    std::cout << recv->to_string() << std::endl;
-
+    for (;;) {
+        joystickManager.handleEvents();
+        mqttManager.send(joystickManager.read());
+        usleep(10000);
+    }
 }

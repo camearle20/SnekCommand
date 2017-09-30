@@ -10,6 +10,9 @@ link_directories(/usr/local/lib)
 
 set(SDL2_LIBRARY /usr/lib/x86_64-linux-gnu/libSDL2.so) #SDL2
 
-set(SOURCE_FILES main.cpp)
-add_executable(SnekCommand ${SOURCE_FILES})
+file(GLOB SNEK_COMMAND_SRC
+        "*.hpp"
+        "*.cpp")
+
+add_executable(SnekCommand ${SNEK_COMMAND_SRC})
 target_link_libraries(SnekCommand paho-mqttpp3 ${SDL2_LIBRARY})
