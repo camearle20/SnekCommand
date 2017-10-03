@@ -13,7 +13,7 @@ int main() {
     mqttManager.init();     //Initialize the mqtt manager
 
     joystickManager.openJoystick(JOYSTICK_ID);                //Open the joystick
-    mqttManager.openConnection("10.0.0.2", "JoystickBridge"); //Open the mqtt connection
+    mqttManager.openConnection("127.0.0.1", "JoystickBridge"); //Open the mqtt connection
 
     for (;;) {
         joystickManager.handleEvents();
