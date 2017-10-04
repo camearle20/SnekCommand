@@ -22,6 +22,8 @@ void JoystickManager::openJoystick(int id) {
     SDL_Joystick *joystick = SDL_JoystickOpen(id);
     if (!joystick) {
         std::cerr << "Unable to open joystick " << id << std::endl;
+    } else {
+        std::cout << "Opened joystick " << id << std::endl;
     }
     joysticks.push_back(joystick);
 }

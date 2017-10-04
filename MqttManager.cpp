@@ -3,6 +3,7 @@
 //
 
 #include "MqttManager.hpp"
+#include <unistd.h>
 
 #define TOPIC "Joystick/data"
 
@@ -13,7 +14,16 @@ void MqttManager::init() {
 
 void MqttManager::openConnection(std::string address, std::string name) {
     client = new mqtt::client(address, name);
-    client->connect(connOpts);
+    while (true) {
+        try {
+            client->connect(connOpts);
+            std::cout << "Connected to MQTT server at " << address << std::endl;
+            break;
+        } catch (...) {
+            std::cerr << "Error connecting to MQTT server at " << address << ", trying again in 5s" << std::endl;
+            sleep(5);
+        }
+    }
 }
 
 void MqttManager::closeConnection() {
