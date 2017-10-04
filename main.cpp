@@ -6,18 +6,18 @@
 #define JOYSTICK_ID 0 //<- SET JOYSTICK ID HERE
 
 int main() {
-    //JoystickManager joystickManager; //Create a joystick manager to hold our joysticks
+    JoystickManager joystickManager; //Create a joystick manager to hold our joysticks
     MqttManager mqttManager;       //Create an mqtt manager to send our data
 
-    //joystickManager.init(); //Initialize the joystick manager
+    joystickManager.init(); //Initialize the joystick manager
     mqttManager.init();     //Initialize the mqtt manager
 
-    //joystickManager.openJoystick(JOYSTICK_ID);                //Open the joystick
+    joystickManager.openJoystick(JOYSTICK_ID);                //Open the joystick
     mqttManager.openConnection("localhost", "JoystickBridge"); //Open the mqtt connection
 
     for (;;) {
-        //joystickManager.handleEvents();
-        //mqttManager.send(joystickManager.read());
+        joystickManager.handleEvents();
+        mqttManager.send(joystickManager.read());
         usleep(10000);
     }
 }
