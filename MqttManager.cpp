@@ -31,6 +31,6 @@ void MqttManager::closeConnection() {
 }
 
 void MqttManager::send(JoystickPacket packet) {
-    auto msg = mqtt::make_message(TOPIC, packet.serialize(), 1, false);
+    auto msg = mqtt::make_message(TOPIC, packet.serialize(), 0, false);
     client->publish(msg);
 }
