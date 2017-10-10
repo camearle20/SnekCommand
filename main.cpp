@@ -18,6 +18,6 @@ int main() {
     for (;;) {
         joystickManager.handleEvents();
         mqttManager.send(joystickManager.read());
-        usleep(10000);
+        usleep(40000);
     }
 }

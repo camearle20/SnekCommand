@@ -54,16 +54,16 @@ void JoystickManager::handleEvents() {
 void JoystickManager::axisEvent() {
     switch (event.jaxis.axis) {
         case 0: // ROLL
-            data.roll = event.jaxis.value;
+            data.roll = (int) map(event.jaxis.value, -32768, 32767, -100, 100);
             break;
         case 1: // PITCH
-            data.pitch = event.jaxis.value;
+            data.pitch = (int) map(event.jaxis.value, -32768, 32767, -100, 100);
             break;
         case 2: // YAW
-            data.yaw = event.jaxis.value;
+            data.yaw = (int) map(event.jaxis.value, -32768, 32767, -100, 100);
             break;
         case 3: // THROTTLE
-            data.throttle = event.jaxis.value;
+            data.throttle = (int) map(event.jaxis.value, -32768, 32767, -100, 100);
             break;
     }
 }

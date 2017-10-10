@@ -6,6 +6,7 @@
 #define SNEKCOMMAND_JOYSTICKPACKET_HPP
 
 #include <sstream>
+#include <iomanip>
 
 struct JoystickPacket {
     int pitch       = 0;

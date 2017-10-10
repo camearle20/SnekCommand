@@ -32,6 +32,9 @@ private:
     void axisEvent();
     void buttonEvent();
     void hatEvent();
+    double map(double x, double oldMin, double oldMax, double newMin, double newMax) {
+        return (newMax - newMin) * (x - oldMin) / (oldMax - oldMin) + newMin;
+    }
 
 };
 
